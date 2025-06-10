@@ -1,4 +1,4 @@
-package com.example.ethylotest;
+package com.example.ethylotest.Logic;
 
 import java.io.Serializable;
 

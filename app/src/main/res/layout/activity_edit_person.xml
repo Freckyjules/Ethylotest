@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditPersonActivity">
+    tools:context=".Activity.EditPersonActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -13,17 +13,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Vos Informations"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/weightEditText"
+        android:id="@+id/volumeEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:ems="10"
         android:inputType="number"
+        android:maxLength="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -55,7 +57,7 @@
         android:layout_marginTop="24dp"
         android:text="Quel est votre genre ?"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/volumeEditText" />
 
     <RadioGroup
         android:id="@+id/genreRadioGroup"
