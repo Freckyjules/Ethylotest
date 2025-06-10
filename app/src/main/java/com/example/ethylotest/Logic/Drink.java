@@ -22,6 +22,20 @@ public class Drink implements Serializable {
     private String name;
 
     /**
+     * Constructeur de la classe Drink.
+     * Initialise le volume, le pourcentage d'alcool, la date et le nom de la boisson.
+     * @param volume le volume en centilitres
+     * @param percentageAlcohol le pourcentage d'alcool
+     * @param name le nom de la boisson
+     */
+    public Drink(int volume, double percentageAlcohol, String name) {
+        setVolume(volume);
+        setPercentageAlcohol(percentageAlcohol);
+        setDate(new java.util.Date()); // Définit la date à la date actuelle
+        setName(name);
+    }
+
+    /**
      * Définit le volume de la boisson.
      * @param volume le volume en centilitres
      */
@@ -96,6 +110,5 @@ public class Drink implements Serializable {
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM HH:mm");
         return name + " " + volume + "ml, " + percentageAlcohol + "%, " + dateFormat.format(date);
-
     }
 }

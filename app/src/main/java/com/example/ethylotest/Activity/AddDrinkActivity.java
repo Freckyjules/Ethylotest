@@ -1,8 +1,10 @@
 package com.example.ethylotest.Activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,14 +12,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.ethylotest.Logic.Drink;
 import com.example.ethylotest.R;
+import com.example.ethylotest.Save.SaveDrinks;
 
 public class AddDrinkActivity extends AppCompatActivity {
 
     private EditText nameEditText;
     private EditText volumeEditText;
     private EditText alcoholEditText;
-    private EditText dateEditText;
 
     private Button cancelButton;
     private Button okButton;
@@ -42,7 +45,6 @@ public class AddDrinkActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameEditText);
         volumeEditText = findViewById(R.id.volumeEditText);
         alcoholEditText = findViewById(R.id.alcoholEditText);
-        dateEditText = findViewById(R.id.dateEditText);
 
         // Initialiser les boutons
         cancelButton = findViewById(R.id.cancelButton2);
@@ -51,8 +53,9 @@ public class AddDrinkActivity extends AppCompatActivity {
         wineButton = findViewById(R.id.wineButton);
         wiskeyButton = findViewById(R.id.whiskeyButton);
 
-        // préparer la date actuelle
-        // dateEditText.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        // Initialise les sharedPreferences et la logique de sauvegarde
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+        SaveDrinks saveDrinks = new SaveDrinks(sharedPreferences);
 
         // Configurer les actions des boutons
         beerButton.setOnClickListener(v -> {
@@ -81,5 +84,36 @@ public class AddDrinkActivity extends AppCompatActivity {
             // Action pour le bouton Annuler
             finish(); // Ferme l'activité actuelle
         });
+
+        okButton.setOnClickListener(v -> {
+
+            // Récupérer les valeurs des champs de saisie
+            String name = nameEditText.getText().toString();
+            String volumeStr = volumeEditText.getText().toString();
+            String alcoholStr = alcoholEditText.getText().toString();
+
+            // Vérifier que les champs ne sont pas vides
+            if (name.isEmpty() || volumeStr.isEmpty() || alcoholStr.isEmpty()) {
+                messageElementManquant(); // Afficher un message d'erreur
+            } else {
+                // Convertir les valeurs en types appropriés
+                int volume = Integer.parseInt(volumeStr);
+                double alcohol = Double.parseDouble(alcoholStr);
+
+                // Créer un objet Drink et le sauvegarder
+                Drink drink = new Drink(volume, alcohol, name);
+                saveDrinks.saveOneDrink(drink);
+
+                // Fermer l'activité après la sauvegarde
+                finish();
+            }
+        });
+    }
+
+    /**
+     * Affiche un message d'erreur si l'utilisateur n'a pas tout rempli les champs requis.
+     */
+    private void messageElementManquant() {
+        Toast.makeText(this, "Veuillez remplir tous les champs requis.", Toast.LENGTH_SHORT).show();
     }
 }
