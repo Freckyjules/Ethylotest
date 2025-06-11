@@ -4,4 +4,10 @@
     <string name="Wine">Vin</string>
     <string name="Beer">Bière</string>
     <string name="Whiskey">Whisky</string>
+    <string name="Name">Nom</string>
+    <string name="Volume_cl">Volume (en cl)</string>
+    <string name="Alcohol_pourcentage">Alcool (en %)</string>
+    <string name="Ok">Ok</string>
+    <string name="Cancel">Annuler</string>
+    <string name="Add_Drink">Ajouter une boisson</string>
 </resources>

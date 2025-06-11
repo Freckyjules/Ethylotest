@@ -3,4 +3,10 @@
     <string name="Wine">Wine</string>
     <string name="Beer">Beer</string>
     <string name="Whiskey">Whiskey</string>
+    <string name="Name">Name</string>
+    <string name="Volume_cl">Volume (in cl)</string>
+    <string name="Alcohol_pourcentage">Alcohol (in %)</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Ok">Ok</string>
+    <string name="Add_Drink">Add Drink</string>
 </resources>

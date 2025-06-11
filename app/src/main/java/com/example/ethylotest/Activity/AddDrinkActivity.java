@@ -18,13 +18,16 @@ import com.example.ethylotest.Save.SaveDrinks;
 
 public class AddDrinkActivity extends AppCompatActivity {
 
+    // Déclaration des variables pour les éléments de l'interface
     private EditText nameEditText;
     private EditText volumeEditText;
     private EditText alcoholEditText;
 
+    // Déclaration des boutons pour les actions
     private Button cancelButton;
     private Button okButton;
 
+    // Déclaration des boutons pour les types de boissons
     private Button beerButton;
     private Button wineButton;
     private Button wiskeyButton;
@@ -60,21 +63,21 @@ public class AddDrinkActivity extends AppCompatActivity {
         // Configurer les actions des boutons
         beerButton.setOnClickListener(v -> {
             // Action pour le bouton Bière
-            nameEditText.setText("Bière");
+            nameEditText.setText(R.string.Beer);
             volumeEditText.setText("25"); // Volume par défaut pour une bière
             alcoholEditText.setText("6"); // Taux d'alcool par défaut pour une bière
         });
 
         wineButton.setOnClickListener(v -> {
             // Action pour le bouton Vin
-            nameEditText.setText("Vin");
+            nameEditText.setText(R.string.Wine);
             volumeEditText.setText("12"); // Volume par défaut pour un verre de vin
             alcoholEditText.setText("13"); // Taux d'alcool par défaut pour un verre de vin
         });
 
         wiskeyButton.setOnClickListener(v -> {
             // Action pour le bouton Whisky
-            nameEditText.setText("Whisky");
+            nameEditText.setText(R.string.Whiskey);
             volumeEditText.setText("2"); // Volume par défaut pour un verre de whisky
             alcoholEditText.setText("40"); // Taux d'alcool par défaut pour un verre de whisky
         });
