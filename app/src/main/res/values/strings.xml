@@ -9,4 +9,12 @@
     <string name="Cancel">Cancel</string>
     <string name="Ok">Ok</string>
     <string name="Add_Drink">Add Drink</string>
+    <string name="Your_information">Your information</string>
+    <string name="Your_Weight">Your Weight (in kg)</string>
+    <string name="What_is_your_gender">What is your gender?</string>
+    <string name="Man">Man</string>
+    <string name="Woman">Woman</string>
+    <string name="Your_license_level">Your license level</string>
+    <string name="Young_Driver">Young Driver</string>
+    <string name="Confirmed_Driver">Confirmed Driver</string>
 </resources>

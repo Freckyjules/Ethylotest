@@ -10,4 +10,13 @@
     <string name="Ok">Ok</string>
     <string name="Cancel">Annuler</string>
     <string name="Add_Drink">Ajouter une boisson</string>
+    <string name="Your_information">Vos informations</string>
+    <string name="Your_Weight">Votre Poid (en kg)</string>
+    <string name="What_is_your_gender">Quel est votre genre ?</string>
+    <string name="Man">Homme</string>
+    <string name="Woman">Femme</string>
+    <string name="Your_license_level">Votre Niveau du permis</string>
+    <string name="Your_license_level">Votre Niveau du permis</string>
+    <string name="Young_Driver">Jeune Conducteur</string>
+    <string name="Confirmed_Driver">Conducteur Confirmé</string>
 </resources>
