@@ -17,4 +17,7 @@
     <string name="Your_license_level">Your license level</string>
     <string name="Young_Driver">Young Driver</string>
     <string name="Confirmed_Driver">Confirmed Driver</string>
+    <string name="Please_register">Please register</string>
+    <string name="You_can_t_drive">You can\'t drive</string>
+    <string name="You_can_drive">You can drive</string>
 </resources>

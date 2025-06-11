@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView testText;
     private TextView tauxText;
+    private TextView driveTextView;
 
     private SharedPreferences sharedPreferences;
 
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialiser le TextView
         testText = findViewById(R.id.testText);
         tauxText = findViewById(R.id.TauxText);
+        driveTextView = findViewById(R.id.driveTextView);
 
         // Mettre à jour le taux d'alcool
         updateTauxText();
@@ -129,13 +131,23 @@ public class MainActivity extends AppCompatActivity {
      */
     private void updateTauxText() {
         // Calculer le taux d'alcool
-        if (savePerson.loadPerson() == null) {
-            tauxText.setText("Aucune personne définie");
-        } else if (saveDrinks.loadDrinks() == null) {
-            tauxText.setText("Aucune boisson définie");
+        double taux = 0.0;
+        Person person = savePerson.loadPerson();
+        if (person == null) {
+            tauxText.setText(R.string.Please_register);
         } else {
-            double taux = saveDrinks.loadDrinks().getTotalAlcohol(savePerson.loadPerson());
-            tauxText.setText(String.valueOf(taux));
+            taux = saveDrinks.loadDrinks().getTotalAlcohol(savePerson.loadPerson());
+            tauxText.setText(String.format("%.2f", taux));
+        }
+        // Mettre à jour le TextView pour savoir si on peut conduire
+        if (person != null) {
+            if ((person.isYoung() && taux > 0.2) || taux > 0.5) {
+                driveTextView.setText(R.string.You_can_t_drive);
+            } else {
+                driveTextView.setText(R.string.You_can_drive);
+            }
+        } else {
+            driveTextView.setText(R.string.Please_register);
         }
     }
 
