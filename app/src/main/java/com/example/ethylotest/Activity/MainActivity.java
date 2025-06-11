@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
-    private Drinks totalDrink;
-
     private ArrayList<String> beerList;
     private ArrayAdapter<String> adapter;
 
@@ -62,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         savePerson = new SavePerson(sharedPreferences);
         saveDrinks = new SaveDrinks(sharedPreferences);
 
-        totalDrink = new Drinks();
-
         // Initialiser le TextView
         testText = findViewById(R.id.testText);
         tauxText = findViewById(R.id.TauxText);
@@ -74,22 +70,26 @@ public class MainActivity extends AppCompatActivity {
         // Initialiser le ListView
         beerList = new ArrayList<>();
 
+        // Mettre à jour la liste des boissons
         beerListView = findViewById(R.id.beerListView);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, beerList);
         beerListView.setAdapter(adapter);
 
+        // Bouton pour éditer la personne
         editPerson = findViewById(R.id.editPerson);
         editPerson.setOnClickListener(v -> {
             Intent intent = new Intent(this, EditPersonActivity.class);
             startActivity(intent);
         });
 
+        // Bouton pour ajouter une boisson
         addDrinkButton = findViewById(R.id.addDrinkButton);
         addDrinkButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddDrinkActivity.class);
             startActivity(intent);
         });
 
+        // Mettre a jour toutes les minutes le taux d'alcool
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -103,19 +103,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Met à jour l'affichage de la liste des boissons.
+     * Cette méthode est appelée pour rafraîchir la liste des boissons affichées dans le ListView.
+     */
     private void updateTotalDrinkDisplay() {
-        // Récupérer les données de TotalDrink
-        Gson gson = new Gson();
-        String totalDrinkStr = sharedPreferences.getString("totalDrink", "");
-        Drinks totalDrinkSave = gson.fromJson(totalDrinkStr, Drinks.class);
+        Drinks totalDrinkSave = saveDrinks.loadDrinks();
 
         if (totalDrinkSave != null) {
-            totalDrink = totalDrinkSave;
             // Nettoyer l’ancienne liste
             beerList.clear();
 
             // Ajouter chaque boisson à la liste affichée
-            for (Drink drink : totalDrink.getDrinks()) {
+            for (Drink drink : totalDrinkSave.getDrinks()) {
                 beerList.add(drink.toString());
             }
             // Prévenir l’adaptateur que les données ont changé
@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Met à jour le TextView affichant le taux d'alcool.
+     * Cette méthode calcule le taux d'alcool en fonction des boissons consommées et de la personne définie.
+     */
     private void updateTauxText() {
         // Calculer le taux d'alcool
         if (savePerson.loadPerson() == null) {
@@ -136,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Méthode appelée lorsque l'activité est reprise.
+     * Elle récupère les données sauvegardées et met à jour l'interface utilisateur.
+     */
     @Override
     protected void onResume() {
         super.onResume();

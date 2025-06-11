@@ -6,6 +6,8 @@ import com.example.ethylotest.Logic.Drink;
 import com.example.ethylotest.Logic.Drinks;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 public class SaveDrinks {
     private SharedPreferences sharedPreferences;
 
