@@ -19,18 +19,6 @@ Ethylotest est une application Android intuitive qui permet aux utilisateurs de 
 - Interface conviviale  
   Navigation simple avec affichage clair des données et résultats.
 
-## Structure du projet
-
-app/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   ├── com/example/ethylotest/
-│   │   │   │   ├── Activity/       # Contient les activités Android (UI)
-│   │   │   │   ├── Logic/          # Contient la logique métier (modèles, calculs)
-│   │   │   │   ├── Save/           # Contient les classes de sauvegarde (SharedPreferences)
-│   │   │   │   ├── R.java          # Classe générée pour les ressources
-
 ## Prérequis
 
 - Langages : Java, Kotlin  
@@ -59,14 +47,6 @@ app/
 
 3. Vérifier votre état  
    Consultez votre taux d’alcoolémie. Recevez une alerte si vous dépassez la limite légale.
-
-## Tests
-
-Les tests unitaires sont disponibles dans :  
-app/src/test/java/com/example/ethylotest/ExampleUnitTest.java
-
-Pour exécuter les tests :
-./gradlew test
 
 ## Auteur
 
