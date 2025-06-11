@@ -72,7 +72,7 @@ public class EditPersonActivity extends AppCompatActivity {
         okButton.setOnClickListener(v -> {
             Person person = VueToPerson();
             // Vérifier si un champ obligatoire est manquant
-            if ((person.getSexe() == null) || (weightEditText.getText().toString().isEmpty()) || (youngRadioButton.isChecked() && oldRadioButton.isChecked())) {
+            if (!person.isValid()) {
                 messageElementManquant();
             } else {
                 // Sauvegarder les données de la personne
@@ -135,7 +135,12 @@ public class EditPersonActivity extends AppCompatActivity {
      */
     public Person VueToPerson() {
         Person person = new Person();
-        person.setWeight(Integer.parseInt(weightEditText.getText().toString()));
+        if (weightEditText.getText().toString().isEmpty()) {
+            person.setWeight(0); // Si le champ est vide, on met le poids à 0
+        } else {
+            // Convertir le texte du champ de poids en entier
+            person.setWeight(Integer.parseInt(weightEditText.getText().toString()));
+        }
         if (manRadioButton.isChecked()) {
             person.setSexe(Sexe.MAN);
         } else if (womanRadioButton.isChecked()) {

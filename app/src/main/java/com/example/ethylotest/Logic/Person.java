@@ -66,4 +66,22 @@ public class Person implements Serializable {
     public boolean isYoung() {
         return isYoung;
     }
+
+    public boolean isValid() {
+        // Vérifie si le poids est défini et supérieur à 0
+        if (weight == null || weight <= 0) {
+            return false;
+        }
+        // Vérifie si le sexe est défini
+        if (sexe == null) {
+            return false;
+        }
+
+        // Vérifie si le statut de jeune conducteur est défini
+        if (isYoung != true && isYoung != false) {
+            return false;
+        }
+        // Si toutes les conditions sont remplies, la personne est valide
+        return true;
+    }
 }
