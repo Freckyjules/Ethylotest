@@ -20,7 +20,5 @@
     <string name="Confirmed_Driver">Conducteur Confirmé</string>
     <string name="Please_register">veuillez vous enregistrer</string>
     <string name="You_can_t_drive">Vous ne pouvez pas conduire</string>
-    <string name="You_can_t_drive">Vous ne pouvez pas conduire</string>
-    <string name="You_can_drive">Vous pouvez conduire</string>
     <string name="You_can_drive">Vous pouvez conduire</string>
 </resources>
