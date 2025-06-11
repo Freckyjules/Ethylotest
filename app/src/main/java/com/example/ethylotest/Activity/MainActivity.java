@@ -18,7 +18,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.ethylotest.Logic.Drink;
 import com.example.ethylotest.Logic.Person;
 import com.example.ethylotest.R;
-import com.example.ethylotest.Logic.Drinks;
 import com.example.ethylotest.Save.SaveDrinks;
 import com.example.ethylotest.Save.SavePerson;
 import com.google.gson.Gson;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView beerListView;
 
-    private TextView testText;
+    private TextView dataText;
     private TextView tauxText;
     private TextView driveTextView;
 
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         saveDrinks = new SaveDrinks(sharedPreferences);
 
         // Initialiser le TextView
-        testText = findViewById(R.id.testText);
+        dataText = findViewById(R.id.dataText);
         tauxText = findViewById(R.id.TauxText);
         driveTextView = findViewById(R.id.driveTextView);
 
@@ -172,19 +171,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // Récupérer les données sauvegardées
-        String str = sharedPreferences.getString("person", "");
-        Gson gson = new Gson();
-        Person person = gson.fromJson(str,Person.class);
-
-        // Mettre à jour le TextView avec la valeur récupérée
-        if (person != null) {
-            testText.setText(person.toString());
-        } else {
-            testText.setText("Aucune donnée trouvée");
-        }
+        updatePersonDisplay(savePerson.loadPerson());
         updateTotalDrinkDisplay();
         updateTauxText();
+    }
+
+    private void updatePersonDisplay(Person person) {
+        if (person != null) {
+            String texte = getString(R.string.Data_taken_into_account) + " : \n" + person.getWeight() + " kg\n" + person.getSexe() + "\n" + (person.isYoung() ? getString(R.string.Young_Driver) : getString(R.string.Confirmed_Driver));
+            dataText.setText(texte);
+        } else {
+            dataText.setText("Aucune donnée trouvée");
+        }
     }
 }

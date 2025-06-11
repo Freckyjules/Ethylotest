@@ -1,5 +1,7 @@
 package com.example.ethylotest.Logic;
 
+import com.example.ethylotest.R;
+
 import java.io.Serializable;
 
 /**
@@ -63,13 +65,5 @@ public class Person implements Serializable {
      */
     public boolean isYoung() {
         return isYoung;
-    }
-
-    @Override
-    public String toString() {
-        return "You : \n" +
-                weight + " kg\n" +
-                sexe + "\n" +
-                isYoung;
     }
 }

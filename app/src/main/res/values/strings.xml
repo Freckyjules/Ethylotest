@@ -24,4 +24,5 @@
     <string name="Yes">Yes</string>
     <string name="No">No</string>
     <string name="Confirmation">Confirmation</string>
+    <string name="Data_taken_into_account">Data taken into account</string>
 </resources>

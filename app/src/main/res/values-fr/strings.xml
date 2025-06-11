@@ -25,4 +25,5 @@
     <string name="Yes">Oui</string>
     <string name="No">Non</string>
     <string name="Confirmation">Confirmation</string>
+    <string name="Data_taken_into_account">Données pris en compte</string>
 </resources>
