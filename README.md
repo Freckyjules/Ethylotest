@@ -48,14 +48,6 @@ Ethylotest est une application Android intuitive qui permet aux utilisateurs de 
 3. Vérifier votre état  
    Consultez votre taux d’alcoolémie. Recevez une alerte si vous dépassez la limite légale.
 
-## Tests
-
-Les tests unitaires sont disponibles dans :  
-app/src/test/java/com/example/ethylotest/ExampleUnitTest.java
-
-Pour exécuter les tests :
-./gradlew test
-
 ## Auteur
 
 Nom : Jules Passaquit-Gauffre  
