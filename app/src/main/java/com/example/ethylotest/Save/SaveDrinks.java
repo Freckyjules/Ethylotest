@@ -9,8 +9,13 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class SaveDrinks {
+    // Classe pour sauvegarder et charger les boissons
     private SharedPreferences sharedPreferences;
 
+    /**
+     * Constructeur de la classe SaveDrinks.
+     * @param sharedPreferences Les SharedPreferences utilisées pour la sauvegarde des boissons.
+     */
     public SaveDrinks(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }

@@ -68,6 +68,11 @@ public class Drinks implements Serializable {
         return sb.toString();
     }
 
+    /**
+     * Calcule le taux d'alcool total dans le sang d'une personne en fonction de ses boissons consommées.
+     * @param person la personne pour laquelle calculer le taux d'alcool
+     * @return le taux d'alcool total dans le sang
+     */
     public double getTotalAlcohol(Person person) {
         if (person == null || person.getWeight() == null || person.getWeight() <= 0) {
             throw new IllegalArgumentException("Person or weight is invalid.");

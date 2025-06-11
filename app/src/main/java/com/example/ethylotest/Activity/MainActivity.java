@@ -40,22 +40,24 @@ import androidx.core.app.NotificationCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Déclaration des Boutons
     private Button editPerson;
     private Button addDrinkButton;
 
+    // Déclaration des ListView et TextViews
     private ListView beerListView;
-
     private TextView dataText;
     private TextView tauxText;
     private TextView driveTextView;
 
+    // Déclaration des SharedPreferences et des classes de sauvegarde
     private SharedPreferences sharedPreferences;
-
-    private ArrayList<Drink> beerList;
-    private ArrayAdapter<Drink> adapter;
-
     private SavePerson savePerson;
     private SaveDrinks saveDrinks;
+
+    // Déclaration des variables pour la liste des boissons et l'adaptateur
+    private ArrayList<Drink> beerList;
+    private ArrayAdapter<Drink> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         beerListView.setAdapter(adapter);
         updateTotalDrinkDisplay();
 
+        // Permettre la suppression d'une boisson en maintenant appuyé sur l'élément de la liste
         beerListView.setOnItemLongClickListener((parent, view, position, id) -> {
             // Créer un AlertDialog pour la confirmation
             new AlertDialog.Builder(this)
@@ -134,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 0,60000); // Mettre à jour toutes les minutes
 
+        // Vérifier les permissions pour les notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
@@ -195,6 +199,10 @@ public class MainActivity extends AppCompatActivity {
         updateTauxText();
     }
 
+    /**
+     * Met à jour l'affichage des données de la personne.
+     * @param person L'objet Person contenant les données à afficher.
+     */
     private void updatePersonDisplay(Person person) {
         if (person != null) {
             String texte = getString(R.string.Data_taken_into_account) + " : \n" + person.getWeight() + " kg\n" + person.getSexe() + "\n" + (person.isYoung() ? getString(R.string.Young_Driver) : getString(R.string.Confirmed_Driver));
