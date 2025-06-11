@@ -23,6 +23,8 @@ import com.example.ethylotest.Save.SavePerson;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,6 +89,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AddDrinkActivity.class);
             startActivity(intent);
         });
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> {
+                    // Mettre à jour le taux d'alcool
+                    updateTauxText();
+                });
+            }
+        }, 0,60000); // Mettre à jour toutes les minutes
+
     }
 
     private void updateTotalDrinkDisplay() {
