@@ -26,4 +26,6 @@
     <string name="No">Non</string>
     <string name="Confirmation">Confirmation</string>
     <string name="Data_taken_into_account">Données pris en compte</string>
+    <string name="You_drank_too_much">Vous avez trop bu</string>
+    <string name="You_can_t_drive_now">" Tu ne peux pas conduire maintenant"</string>
 </resources>

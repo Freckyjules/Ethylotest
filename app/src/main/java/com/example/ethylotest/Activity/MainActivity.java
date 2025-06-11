@@ -1,8 +1,15 @@
 package com.example.ethylotest.Activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,6 +33,10 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.os.Build;
+import androidx.core.app.NotificationCompat;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // Mettre à jour l'affichage de la liste
                         updateTotalDrinkDisplay();
+                        updateTauxText();
                     })
                     .setNegativeButton(R.string.No, null)
                     .show();
@@ -121,6 +134,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 0,60000); // Mettre à jour toutes les minutes
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
     }
 
     /**
@@ -155,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         if (person != null) {
             if ((person.isYoung() && taux > 0.2) || taux > 0.5) {
                 driveTextView.setText(R.string.You_can_t_drive);
+                sendNotification(getString(R.string.You_drank_too_much), getString(R.string.You_can_t_drive));
             } else {
                 driveTextView.setText(R.string.You_can_drive);
             }
@@ -183,5 +202,45 @@ public class MainActivity extends AppCompatActivity {
         } else {
             dataText.setText("Aucune donnée trouvée");
         }
+    }
+
+    /**
+     * Permet d'envoyer une notification.
+     * @param title Le titre de la notification
+     * @param content Le contenu de la notification
+     */
+    private void sendNotification(String title, String content) {
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        String channelId = "ethylotest_channel";
+
+        // Créer le canal pour Android 8+ (SDK 26+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    channelId,
+                    "Ethylotest Notifications",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription("Notifications d'alerte éthylotest");
+            manager.createNotificationChannel(channel);
+        }
+
+        // Intent pour lancer l'activité lors du clic sur la notif
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        // Créer la notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.icon_foreground)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        // Afficher la notification
+        manager.notify(100, builder.build());
     }
 }
