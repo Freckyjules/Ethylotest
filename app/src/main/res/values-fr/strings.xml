@@ -21,4 +21,8 @@
     <string name="Please_register">veuillez vous enregistrer</string>
     <string name="You_can_t_drive">Vous ne pouvez pas conduire</string>
     <string name="You_can_drive">Vous pouvez conduire</string>
+    <string name="Are_you_sure_you_want_to_delete_this_drink">Voulez-vous vraiment supprimer cette boisson ?</string>
+    <string name="Yes">Oui</string>
+    <string name="No">Non</string>
+    <string name="Confirmation">Confirmation</string>
 </resources>

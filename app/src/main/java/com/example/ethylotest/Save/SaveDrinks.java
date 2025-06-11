@@ -38,6 +38,16 @@ public class SaveDrinks {
     }
 
     /**
+     * Supprime une boisson de la liste des boissons et met à jour la sauvegarde.
+     * @param index L'index de la boisson à supprimer.
+     */
+    public void saveOneRemoveDrink(int index) {
+        Drinks totalDrink = loadDrinks();
+        totalDrink.RemoveDrink(index);
+        saveDrinks(totalDrink);
+    }
+
+    /**
      * Load les boissons depuis les SharedPreferences.
      * @return L'objet Drinks contenant la liste des boissons chargées.
      */

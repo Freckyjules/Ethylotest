@@ -29,12 +29,12 @@ public class Drinks implements Serializable {
 
     /**
      * Supprime une boisson de la liste des boissons consommées.
-     * @param drink la boisson à supprimer
+     * @param index l'index de la boisson à supprimer
      */
-    public void RemoveDrink(Drink drink) {
-        if (drink != null) {
-            this.drinks.remove(drink);
-        }
+    public void RemoveDrink(int index) {
+
+        this.drinks.remove(index);
+
     }
 
     /**
@@ -43,6 +43,18 @@ public class Drinks implements Serializable {
      */
     public ArrayList<Drink> getDrinks() {
         return drinks;
+    }
+
+    /**
+     * Définit la liste des boissons consommées.
+     * @param drinks la nouvelle liste de boissons
+     */
+    public void setDrinks(ArrayList<Drink> drinks) {
+        if (drinks != null) {
+            this.drinks = drinks;
+        } else {
+            this.drinks = new ArrayList<>();
+        }
     }
 
     @Override

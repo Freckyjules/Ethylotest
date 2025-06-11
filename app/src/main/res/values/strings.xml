@@ -20,4 +20,8 @@
     <string name="Please_register">Please register</string>
     <string name="You_can_t_drive">You can\'t drive</string>
     <string name="You_can_drive">You can drive</string>
+    <string name="Are_you_sure_you_want_to_delete_this_drink">Are you sure you want to delete this drink?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="Confirmation">Confirmation</string>
 </resources>
