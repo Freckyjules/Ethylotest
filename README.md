@@ -19,18 +19,6 @@ Ethylotest est une application Android intuitive qui permet aux utilisateurs de 
 - Interface conviviale  
   Navigation simple avec affichage clair des données et résultats.
 
-## Structure du projet
-
-app/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   ├── com/example/ethylotest/
-│   │   │   │   ├── Activity/       # Contient les activités Android (UI)
-│   │   │   │   ├── Logic/          # Contient la logique métier (modèles, calculs)
-│   │   │   │   ├── Save/           # Contient les classes de sauvegarde (SharedPreferences)
-│   │   │   │   ├── R.java          # Classe générée pour les ressources
-
 ## Prérequis
 
 - Langages : Java, Kotlin  
