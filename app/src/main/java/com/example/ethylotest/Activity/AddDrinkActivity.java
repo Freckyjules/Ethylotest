@@ -61,21 +61,21 @@ public class AddDrinkActivity extends AppCompatActivity {
         beerButton.setOnClickListener(v -> {
             // Action pour le bouton Bière
             nameEditText.setText("Bière");
-            volumeEditText.setText("33"); // Volume par défaut pour une bière
-            alcoholEditText.setText("5"); // Taux d'alcool par défaut pour une bière
+            volumeEditText.setText("25"); // Volume par défaut pour une bière
+            alcoholEditText.setText("6"); // Taux d'alcool par défaut pour une bière
         });
 
         wineButton.setOnClickListener(v -> {
             // Action pour le bouton Vin
             nameEditText.setText("Vin");
-            volumeEditText.setText("15"); // Volume par défaut pour un verre de vin
-            alcoholEditText.setText("12"); // Taux d'alcool par défaut pour un verre de vin
+            volumeEditText.setText("12"); // Volume par défaut pour un verre de vin
+            alcoholEditText.setText("13"); // Taux d'alcool par défaut pour un verre de vin
         });
 
         wiskeyButton.setOnClickListener(v -> {
             // Action pour le bouton Whisky
             nameEditText.setText("Whisky");
-            volumeEditText.setText("4"); // Volume par défaut pour un verre de whisky
+            volumeEditText.setText("2"); // Volume par défaut pour un verre de whisky
             alcoholEditText.setText("40"); // Taux d'alcool par défaut pour un verre de whisky
         });
 

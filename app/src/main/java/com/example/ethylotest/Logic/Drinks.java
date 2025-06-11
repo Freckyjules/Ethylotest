@@ -3,6 +3,8 @@ package com.example.ethylotest.Logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import kotlin.experimental.ExperimentalObjCName;
+
 public class Drinks implements Serializable {
     /* Liste des boissons consommées */
     private ArrayList<Drink> drinks;
@@ -54,5 +56,42 @@ public class Drinks implements Serializable {
         return sb.toString();
     }
 
+    public double getTotalAlcohol(Person person) {
+        if (person == null || person.getWeight() == null || person.getWeight() <= 0) {
+            throw new IllegalArgumentException("Person or weight is invalid.");
+        }
 
+        double totalAlcohol = 0.0;
+        double eliminationRate = 0.15; // g/l par heure
+        double coefficient = person.getSexe() == Sexe.MAN ? 0.7 : 0.8; // Coefficient K
+
+        for (int i = 0; i < drinks.size(); i++) {
+            Drink drink = drinks.get(i);
+
+            // Calcul du taux d'alcool pour la boisson
+            double alcohol = (drink.getVolume() * 0.1 * drink.getPercentageAlcohol() * 0.8) / (coefficient * person.getWeight());
+
+            // Calculer le temps écoulé entre la boisson actuelle et celle d'après
+            long timeDifference;
+            if (i < drinks.size() - 1) {
+                Drink nextDrink = drinks.get(i + 1);
+                timeDifference = nextDrink.getDate().getTime() - drink.getDate().getTime(); // Différence en millisecondes
+            } else {
+                timeDifference = System.currentTimeMillis() - drink.getDate().getTime(); // Utiliser la date actuelle
+            }
+
+            double hoursElapsed = timeDifference / (1000.0 * 60 * 60); // Convertir en heures
+
+            // Réduire l'alcool en fonction du temps écoulé
+            totalAlcohol -= eliminationRate * hoursElapsed;
+            if (totalAlcohol < 0) {
+                totalAlcohol = 0; // Le taux d'alcool ne peut pas être négatif
+            }
+
+            // Ajouter l'alcool de la boisson actuelle
+            totalAlcohol += alcohol;
+        }
+
+        return totalAlcohol;
+    }
 }

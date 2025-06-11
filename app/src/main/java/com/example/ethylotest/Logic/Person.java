@@ -67,10 +67,9 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "weight=" + weight +
-                ", sexe=" + sexe +
-                ", isYoung=" + isYoung +
-                '}';
+        return "You : \n" +
+                weight + " kg\n" +
+                sexe + "\n" +
+                isYoung;
     }
 }

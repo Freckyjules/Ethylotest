@@ -18,6 +18,8 @@ import com.example.ethylotest.Logic.Drink;
 import com.example.ethylotest.Logic.Person;
 import com.example.ethylotest.R;
 import com.example.ethylotest.Logic.Drinks;
+import com.example.ethylotest.Save.SaveDrinks;
+import com.example.ethylotest.Save.SavePerson;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView beerListView;
 
     private TextView testText;
-    private TextView testText2;
+    private TextView tauxText;
 
     private SharedPreferences sharedPreferences;
 
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> beerList;
     private ArrayAdapter<String> adapter;
 
+    private SavePerson savePerson;
+    private SaveDrinks saveDrinks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +55,19 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialiser les SharedPreferences
+        // Initialiser les SharedPreferences and Save classes
         sharedPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+        savePerson = new SavePerson(sharedPreferences);
+        saveDrinks = new SaveDrinks(sharedPreferences);
 
         totalDrink = new Drinks();
 
         // Initialiser le TextView
         testText = findViewById(R.id.testText);
-        testText2 = findViewById(R.id.testText2);
+        tauxText = findViewById(R.id.TauxText);
+
+        // Mettre à jour le taux d'alcool
+        updateTauxText();
 
         // Initialiser le ListView
         beerList = new ArrayList<>();
@@ -78,30 +87,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AddDrinkActivity.class);
             startActivity(intent);
         });
-        /*beerButton.setOnClickListener(v -> {
-
-            Drink drink = new Drink();
-            drink.setVolume(25);
-            drink.setPercentageAlcohol(6.0);
-            drink.setDate(new java.util.Date());
-            drink.setName("Bière");
-
-            totalDrink.AddDrink(drink);
-
-            // Sauvegarder les données
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            Gson gson = new Gson();
-            String str = gson.toJson(totalDrink);
-            editor.putString("totalDrink", str);
-
-            editor.apply();
-
-            updateTotalDrinkDisplay();
-        });*/
     }
 
-    protected void updateTotalDrinkDisplay() {
+    private void updateTotalDrinkDisplay() {
         // Récupérer les données de TotalDrink
         Gson gson = new Gson();
         String totalDrinkStr = sharedPreferences.getString("totalDrink", "");
@@ -118,6 +106,18 @@ public class MainActivity extends AppCompatActivity {
             }
             // Prévenir l’adaptateur que les données ont changé
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void updateTauxText() {
+        // Calculer le taux d'alcool
+        if (savePerson.loadPerson() == null) {
+            tauxText.setText("Aucune personne définie");
+        } else if (saveDrinks.loadDrinks() == null) {
+            tauxText.setText("Aucune boisson définie");
+        } else {
+            double taux = saveDrinks.loadDrinks().getTotalAlcohol(savePerson.loadPerson());
+            tauxText.setText(String.valueOf(taux));
         }
     }
 
@@ -138,5 +138,6 @@ public class MainActivity extends AppCompatActivity {
             testText.setText("Aucune donnée trouvée");
         }
         updateTotalDrinkDisplay();
+        updateTauxText();
     }
 }
