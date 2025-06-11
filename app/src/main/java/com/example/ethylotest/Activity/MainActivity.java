@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             tauxText.setText(R.string.Please_register);
         } else {
             taux = saveDrinks.loadDrinks().getTotalAlcohol(savePerson.loadPerson());
-            tauxText.setText(String.format("%.2f", taux));
+            tauxText.setText(String.format("%.2f", taux) + "g/L");
         }
         // Mettre à jour le TextView pour savoir si on peut conduire
         if (person != null) {
