@@ -29,6 +29,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    applicationVariants.all {
+        outputs.all {
+            val appName = "Ethylotest"
+            val version = versionName ?: "1.0"
+            val newApkName = "$appName-v$version.apk"
+            (this as com.android.build.gradle.internal.api.ApkVariantOutputImpl).outputFileName = newApkName
+        }
+    }
 }
 
 dependencies {
