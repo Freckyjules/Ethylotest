@@ -99,16 +99,34 @@ public class Drinks implements Serializable {
 
             double hoursElapsed = timeDifference / (1000.0 * 60 * 60); // Convertir en heures
 
+            // Ajouter l'alcool de la boisson actuelle
+            totalAlcohol += alcohol;
+
             // Réduire l'alcool en fonction du temps écoulé
             totalAlcohol -= eliminationRate * hoursElapsed;
             if (totalAlcohol < 0) {
                 totalAlcohol = 0; // Le taux d'alcool ne peut pas être négatif
             }
+        }
+        return totalAlcohol;
+    }
 
-            // Ajouter l'alcool de la boisson actuelle
-            totalAlcohol += alcohol;
+    public double getTimeYouCanDrive(Person person) {
+        if (person == null || person.getWeight() == null || person.getWeight() <= 0) {
+            throw new IllegalArgumentException("Person or weight is invalid.");
         }
 
-        return totalAlcohol;
+        double totalAlcohol = getTotalAlcohol(person);
+        double eliminationRate = 0.15; // g/l par heure
+        boolean isYoung = person.isYoung();
+
+        double alcoolToLose;
+        if (isYoung) {
+            alcoolToLose = totalAlcohol - 0.2; // Taux limite pour les jeunes conducteurs
+        } else {
+            alcoolToLose = totalAlcohol - 0.5; // Taux limite pour les conducteurs confirmés
+        }
+        double timeToLose = alcoolToLose / eliminationRate; // Temps en heures pour atteindre le taux limite
+        return timeToLose > 0 ? timeToLose : 0; // Retourne 0 si le temps est négatif
     }
 }

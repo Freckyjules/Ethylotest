@@ -25,7 +25,8 @@
     <string name="Yes">Oui</string>
     <string name="No">Non</string>
     <string name="Confirmation">Confirmation</string>
-    <string name="Data_taken_into_account">Données pris en compte</string>
+    <string name="Data_taken_into_account">Données prise en compte</string>
     <string name="You_drank_too_much">Vous avez trop bu</string>
     <string name="You_can_t_drive_now">" Tu ne peux pas conduire maintenant"</string>
+    <string name="You_will_be_able_to_drive_in">Vous pourrez conduire dans</string>
 </resources>

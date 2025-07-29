@@ -27,4 +27,5 @@
     <string name="Data_taken_into_account">Data taken into account</string>
     <string name="You_drank_too_much">You drank too much</string>
     <string name="You_can_t_drive_now">You can\'t drive now</string>
+    <string name="You_will_be_able_to_drive_in">You will be able to drive in</string>
 </resources>

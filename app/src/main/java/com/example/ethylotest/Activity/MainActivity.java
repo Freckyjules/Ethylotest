@@ -2,11 +2,9 @@ package com.example.ethylotest.Activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,20 +15,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ethylotest.Logic.Drink;
+import com.example.ethylotest.Logic.Drinks;
 import com.example.ethylotest.Logic.Person;
 import com.example.ethylotest.R;
 import com.example.ethylotest.Save.SaveDrinks;
 import com.example.ethylotest.Save.SavePerson;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         savePerson = new SavePerson(sharedPreferences);
         saveDrinks = new SaveDrinks(sharedPreferences);
 
-        // Initialiser le TextView
+        // Initialiser les TextView
         dataText = findViewById(R.id.dataText);
         tauxText = findViewById(R.id.TauxText);
         driveTextView = findViewById(R.id.driveTextView);
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage(R.string.Are_you_sure_you_want_to_delete_this_drink)
                     .setPositiveButton(R.string.Yes, (dialog, which) -> {
                         // Supprimer l'élément de la liste
-                        saveDrinks.saveOneRemoveDrink(position);
+                        saveDrinks.saveOneRemoveDrink(beerList.size() - 1 - position); // Ajuster l'index pour la suppression sur la liste inversée
 
                         // Mettre à jour l'affichage de la liste
                         updateTotalDrinkDisplay();
@@ -135,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     updateTauxText();
                 });
             }
-        }, 0,60000); // Mettre à jour toutes les minutes
+        }, 0,2000); // Mettre à jour toutes les 2 secondes
 
         // Vérifier les permissions pour les notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -153,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         beerList = saveDrinks.loadDrinks().getDrinks();
 
         if (beerList != null) {
+            Collections.reverse(beerList);
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, beerList);
             beerListView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
@@ -167,23 +166,37 @@ public class MainActivity extends AppCompatActivity {
         // Calculer le taux d'alcool
         double taux = 0.0;
         Person person = savePerson.loadPerson();
+        Drinks drinks = saveDrinks.loadDrinks();
         if (person == null) {
             tauxText.setText(R.string.Please_register);
         } else {
-            taux = saveDrinks.loadDrinks().getTotalAlcohol(savePerson.loadPerson());
-            tauxText.setText(String.format("%.2f", taux) + "g/L");
+            taux = drinks.getTotalAlcohol(savePerson.loadPerson());
+            tauxText.setText(String.format("%.4f", taux) + "g/L");
         }
         // Mettre à jour le TextView pour savoir si on peut conduire
         if (person != null) {
             if ((person.isYoung() && taux > 0.2) || taux > 0.5) {
-                driveTextView.setText(R.string.You_can_t_drive);
-                sendNotification(getString(R.string.You_drank_too_much), getString(R.string.You_can_t_drive));
+                String formattedTime = formatHoursToString(drinks.getTimeYouCanDrive(person));
+                driveTextView.setText(getString(R.string.You_can_t_drive) + "\n" + getString(R.string.You_will_be_able_to_drive_in) + " " + formattedTime);
+
+                //sendNotification(getString(R.string.You_drank_too_much), getString(R.string.You_can_t_drive));
             } else {
                 driveTextView.setText(R.string.You_can_drive);
             }
         } else {
             driveTextView.setText(R.string.Please_register);
         }
+    }
+
+    /**
+     * Convertit un double représentant des heures en une chaîne formatée.
+     * @param hours Le nombre d'heures en double.
+     * @return Une chaîne formatée du type "1h 30min".
+     */
+    public String formatHoursToString(double hours) {
+        int fullHours = (int) hours; // Partie entière des heures
+        int minutes = (int) ((hours - fullHours) * 60); // Conversion de la partie décimale en minutes
+        return fullHours + "h " + minutes + "min";
     }
 
 
@@ -205,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void updatePersonDisplay(Person person) {
         if (person != null) {
-            String texte = getString(R.string.Data_taken_into_account) + " : \n" + person.getWeight() + " kg\n" + person.getSexe() + "\n" + (person.isYoung() ? getString(R.string.Young_Driver) : getString(R.string.Confirmed_Driver));
+            String texte = getString(R.string.Data_taken_into_account) + " : \n" + person.getWeight() + " kg  " + person.getSexe() + "\n" + (person.isYoung() ? getString(R.string.Young_Driver) : getString(R.string.Confirmed_Driver));
             dataText.setText(texte);
         } else {
             dataText.setText("Aucune donnée trouvée");
