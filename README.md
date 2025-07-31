@@ -2,6 +2,13 @@
 
 Ethylotest est une application Android intuitive qui permet aux utilisateurs de suivre leur consommation d’alcool et de vérifier s’ils sont en état de conduire, en fonction de leur profil personnel.
 
+## Installation sur Android
+
+Pour télécharger et installer l'application, rendez-vous sur le dépôt suivant :  
+[Ethylotest-APK](https://github.com/Freckyjules/Ethylotest-APK)
+
+Vous y trouverez la dernière version du fichier .apk à installer sur votre appareil Android.
+
 ## Fonctionnalités principales
 
 - Gestion du profil utilisateur  
