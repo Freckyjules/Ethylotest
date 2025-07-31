@@ -1,30 +1,39 @@
-# Ethylotest – Application Android pour le suivi d'alcoolémie
+# Ethylotest – Application Android pour le suivi de l'alcoolémie
 
-Ethylotest est une application Android intuitive qui permet aux utilisateurs de suivre leur consommation d’alcool et de vérifier s’ils sont en état de conduire, en fonction de leur profil personnel.
+**Ethylotest** est une application Android intuitive qui permet aux utilisateurs de suivre leur consommation d’alcool et de vérifier s’ils sont en état de conduire, en fonction de leur profil personnel.
 
-## Installation sur Android
+---
 
-Pour télécharger et installer l'application, rendez-vous sur le dépôt suivant :  
-- [Ethylotest-APK](https://github.com/Freckyjules/Ethylotest-APK)
+## Installation de l'application
 
-Vous y trouverez la dernière version du fichier .apk à installer sur votre appareil Android.
+Pour installer directement l'application sur votre smartphone Android :
+
+Téléchargez la dernière version de l'APK depuis la section [Releases](https://github.com/Freckyjules/2024-Ethylotest-PASSAQUIT-GAUFFRE-Jules/releases)
+
+1. Téléchargez le fichier `.apk`
+2. Transférez-le sur votre téléphone si besoin
+3. Ouvrez-le pour lancer l’installation (vous devrez peut-être autoriser les sources inconnues)
+
+---
 
 ## Fonctionnalités principales
 
-- Gestion du profil utilisateur  
-  Saisie du poids, sexe et niveau de permis.
+- **Gestion du profil utilisateur**  
+  Saisie du poids, du sexe et du niveau de permis.
 
-- Ajout de boissons  
+- **Ajout de boissons**  
   Enregistrement de chaque boisson avec volume et taux d’alcool.
 
-- Calcul du taux d’alcoolémie  
+- **Calcul du taux d’alcoolémie**  
   Calcul automatique basé sur les données saisies.
 
-- Notifications  
-  Alerte en cas de dépassement des limites légales d’alcoolémie.
+- **Estimation du temps avant de pouvoir conduire**  
+  Temps estimé pour redescendre sous la limite légale.
 
-- Interface conviviale  
+- **Interface conviviale**  
   Navigation simple avec affichage clair des données et résultats.
+
+---
 
 ## Prérequis
 
@@ -32,6 +41,8 @@ Vous y trouverez la dernière version du fichier .apk à installer sur votre app
 - IDE : Android Studio  
 - Outils : Gradle  
 - SDK Android : version minimale 26 (Android 8.0)
+
+---
 
 ## Installation
 
@@ -44,16 +55,7 @@ Vous y trouverez la dernière version du fichier .apk à installer sur votre app
 
 4. Lancez l’application sur un émulateur ou un appareil physique
 
-## Utilisation
-
-1. Saisir vos informations personnelles  
-   Accédez à l’écran « Modifier le profil » pour entrer vos données.
-
-2. Ajouter des boissons consommées  
-   Renseignez les détails : volume et pourcentage d’alcool.
-
-3. Vérifier votre état  
-   Consultez votre taux d’alcoolémie. Recevez une alerte si vous dépassez la limite légale.
+---
 
 ## Auteur
 
