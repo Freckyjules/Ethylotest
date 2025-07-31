@@ -1,6 +1,6 @@
 # Ethylotest – Application Android pour le suivi de l'alcoolémie
 
-**Ethylotest** est une application Android intuitive qui permet aux utilisateurs de suivre leur consommation d’alcool et de vérifier s’ils sont en état de conduire, en fonction de leur profil personnel.
+**Ethylotest** est une application Android qui permet aux utilisateurs de suivre leur consommation d’alcool et de vérifier s’ils sont en état de conduire, en fonction de leur profil personnel.
 
 ## Installation de l'application
 
