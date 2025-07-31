@@ -14,8 +14,6 @@ Téléchargez la dernière version de l'APK depuis la section [Releases](https:/
 2. Transférez-le sur votre téléphone si besoin
 3. Ouvrez-le pour lancer l’installation (vous devrez peut-être autoriser les sources inconnues)
 
----
-
 ## Fonctionnalités principales
 
 - **Gestion du profil utilisateur**  
@@ -33,16 +31,12 @@ Téléchargez la dernière version de l'APK depuis la section [Releases](https:/
 - **Interface conviviale**  
   Navigation simple avec affichage clair des données et résultats.
 
----
-
 ## Prérequis
 
 - Langages : Java, Kotlin  
 - IDE : Android Studio  
 - Outils : Gradle  
 - SDK Android : version minimale 26 (Android 8.0)
-
----
 
 ## Installation
 
@@ -54,8 +48,6 @@ Téléchargez la dernière version de l'APK depuis la section [Releases](https:/
 3. Synchronisez Gradle et installez les dépendances
 
 4. Lancez l’application sur un émulateur ou un appareil physique
-
----
 
 ## Auteur
 
