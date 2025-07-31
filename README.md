@@ -39,7 +39,7 @@ Téléchargez la dernière version de l'APK depuis la section [Releases](https:/
 ## Installation
 
 1. Clonez le dépôt :
-   git clone https://github.com/Freckyjules/2024-Ethylotest-PASSAQUIT-GAUFFRE-Jules.git
+   git clone https://github.com/Freckyjules/Ethylotest.git
 
 2. Ouvrez le projet dans Android Studio
 
