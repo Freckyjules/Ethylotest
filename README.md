@@ -6,7 +6,7 @@
 
 Pour installer directement l'application sur votre smartphone Android :
 
-Téléchargez la dernière version de l'APK depuis la section [Releases](https://github.com/Freckyjules/2024-Ethylotest-PASSAQUIT-GAUFFRE-Jules/releases)
+Téléchargez la dernière version de l'APK depuis la section [Releases](https://github.com/Freckyjules/Ethylotest/releases)
 
 1. Téléchargez le fichier `.apk`
 2. Transférez-le sur votre téléphone si besoin
