@@ -28,4 +28,7 @@
     <string name="You_drank_too_much">You drank too much</string>
     <string name="You_can_t_drive_now">You can\'t drive now</string>
     <string name="You_will_be_able_to_drive_in">You will be able to drive in</string>
+    <string name="EditDrink">Edit Drink</string>
+    <string name="Date">Date</string>
+    <string name="Delete">Delete</string>
 </resources>
