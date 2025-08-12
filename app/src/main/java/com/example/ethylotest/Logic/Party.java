@@ -3,9 +3,7 @@ package com.example.ethylotest.Logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import kotlin.experimental.ExperimentalObjCName;
-
-public class Drinks implements Serializable {
+public class Party implements Serializable {
     /* Liste des boissons consommées */
     private ArrayList<Drink> drinks;
 
@@ -13,7 +11,7 @@ public class Drinks implements Serializable {
      * Constructeur de la classe TotalDrink.
      * Initialise la liste des boissons.
      */
-    public Drinks() {
+    public Party() {
         this.drinks = new ArrayList<>();
     }
 

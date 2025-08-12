@@ -3,12 +3,10 @@ package com.example.ethylotest.Save;
 import android.content.SharedPreferences;
 
 import com.example.ethylotest.Logic.Drink;
-import com.example.ethylotest.Logic.Drinks;
+import com.example.ethylotest.Logic.Party;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-
-public class SaveDrinks {
+public class SaveParty {
     // Classe pour sauvegarder et charger les boissons
     private SharedPreferences sharedPreferences;
 
@@ -16,7 +14,7 @@ public class SaveDrinks {
      * Constructeur de la classe SaveDrinks.
      * @param sharedPreferences Les SharedPreferences utilisées pour la sauvegarde des boissons.
      */
-    public SaveDrinks(SharedPreferences sharedPreferences) {
+    public SaveParty(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 
@@ -24,7 +22,7 @@ public class SaveDrinks {
      * Sauvegarde les boissons dans les SharedPreferences.
      * @param totalDrink L'objet Drinks contenant la liste des boissons à sauvegarder.
      */
-    private void saveDrinks(Drinks totalDrink) {
+    private void saveDrinks(Party totalDrink) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String str = gson.toJson(totalDrink);
@@ -37,7 +35,7 @@ public class SaveDrinks {
      * @param drink La boisson à ajouter.
      */
     public void saveOneDrink(Drink drink) {
-        Drinks totalDrink = loadDrinks();
+        Party totalDrink = loadParty();
         totalDrink.AddDrink(drink);
         saveDrinks(totalDrink);
     }
@@ -47,7 +45,7 @@ public class SaveDrinks {
      * @param index L'index de la boisson à supprimer.
      */
     public void saveOneRemoveDrink(int index) {
-        Drinks totalDrink = loadDrinks();
+        Party totalDrink = loadParty();
         totalDrink.RemoveDrink(index);
         saveDrinks(totalDrink);
     }
@@ -56,12 +54,12 @@ public class SaveDrinks {
      * Load les boissons depuis les SharedPreferences.
      * @return L'objet Drinks contenant la liste des boissons chargées.
      */
-    public Drinks loadDrinks() {
+    public Party loadParty() {
         Gson gson = new Gson();
         String totalDrinkStr = sharedPreferences.getString("totalDrink", "");
-        Drinks totalDrinkSave = gson.fromJson(totalDrinkStr, Drinks.class);
+        Party totalDrinkSave = gson.fromJson(totalDrinkStr, Party.class);
         if (totalDrinkSave == null) {
-            totalDrinkSave = new Drinks();
+            totalDrinkSave = new Party();
         }
         return totalDrinkSave;
     }

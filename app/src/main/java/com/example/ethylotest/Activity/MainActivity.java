@@ -21,10 +21,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ethylotest.Logic.Drink;
-import com.example.ethylotest.Logic.Drinks;
+import com.example.ethylotest.Logic.Party;
 import com.example.ethylotest.Logic.Person;
 import com.example.ethylotest.R;
-import com.example.ethylotest.Save.SaveDrinks;
+import com.example.ethylotest.Save.SaveParty;
 import com.example.ethylotest.Save.SavePerson;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     // Déclaration des SharedPreferences et des classes de sauvegarde
     private SharedPreferences sharedPreferences;
     private SavePerson savePerson;
-    private SaveDrinks saveDrinks;
+    private SaveParty saveParty;
 
     // Déclaration des variables pour la liste des boissons et l'adaptateur
     private ArrayList<Drink> beerList;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialiser les SharedPreferences and Save classes
         sharedPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
         savePerson = new SavePerson(sharedPreferences);
-        saveDrinks = new SaveDrinks(sharedPreferences);
+        saveParty = new SaveParty(sharedPreferences);
 
         // Initialiser les TextView
         dataText = findViewById(R.id.dataText);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage(R.string.Are_you_sure_you_want_to_delete_this_drink)
                     .setPositiveButton(R.string.Yes, (dialog, which) -> {
                         // Supprimer l'élément de la liste
-                        saveDrinks.saveOneRemoveDrink(beerList.size() - 1 - position); // Ajuster l'index pour la suppression sur la liste inversée
+                        saveParty.saveOneRemoveDrink(beerList.size() - 1 - position); // Ajuster l'index pour la suppression sur la liste inversée
 
                         // Mettre à jour l'affichage de la liste
                         updateTotalDrinkDisplay();
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
      * Cette méthode est appelée pour rafraîchir la liste des boissons affichées dans le ListView.
      */
     private void updateTotalDrinkDisplay() {
-        beerList = saveDrinks.loadDrinks().getDrinks();
+        beerList = saveParty.loadParty().getDrinks();
 
         if (beerList != null) {
             Collections.reverse(beerList);
@@ -166,17 +166,17 @@ public class MainActivity extends AppCompatActivity {
         // Calculer le taux d'alcool
         double taux = 0.0;
         Person person = savePerson.loadPerson();
-        Drinks drinks = saveDrinks.loadDrinks();
+        Party party = saveParty.loadParty();
         if (person == null) {
             tauxText.setText(R.string.Please_register);
         } else {
-            taux = drinks.getTotalAlcohol(savePerson.loadPerson());
+            taux = party.getTotalAlcohol(savePerson.loadPerson());
             tauxText.setText(String.format("%.4f", taux) + "g/L");
         }
         // Mettre à jour le TextView pour savoir si on peut conduire
         if (person != null) {
             if ((person.isYoung() && taux > 0.2) || taux > 0.5) {
-                String formattedTime = formatHoursToString(drinks.getTimeYouCanDrive(person));
+                String formattedTime = formatHoursToString(party.getTimeYouCanDrive(person));
                 driveTextView.setText(getString(R.string.You_can_t_drive) + "\n" + getString(R.string.You_will_be_able_to_drive_in) + " " + formattedTime);
 
                 //sendNotification(getString(R.string.You_drank_too_much), getString(R.string.You_can_t_drive));
