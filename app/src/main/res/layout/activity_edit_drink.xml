@@ -9,19 +9,20 @@
     tools:context=".Activity.EditDrinkActivity">
 
     <Button
-        android:id="@+id/okButton2"
+        android:id="@+id/okButton3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:text="@string/Ok"
-        app:layout_constraintBottom_toTopOf="@+id/cancelButton2"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/cancelButton2"
+        android:id="@+id/cancelButton3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -30,6 +31,7 @@
         android:text="@string/Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -109,8 +111,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:clickable="true"
+        android:cursorVisible="false"
         android:ems="10"
-        android:inputType="time"
+        android:focusable="false"
+        android:inputType="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -132,7 +137,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:text="@string/Delete"
-        app:layout_constraintBottom_toTopOf="@+id/okButton2"
+        app:layout_constraintBottom_toTopOf="@+id/okButton3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent" />

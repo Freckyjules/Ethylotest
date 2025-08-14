@@ -41,12 +41,23 @@ public class SaveParty {
     }
 
     /**
-     * Supprime une boisson de la liste des boissons et met à jour la sauvegarde.
-     * @param index L'index de la boisson à supprimer.
+     * Supprime une boisson spécifique de la liste des boissons et met à jour la sauvegarde.
+     * @param drink La boisson à supprimer.
      */
-    public void saveOneRemoveDrink(int index) {
+    public void saveOneRemoveDrink(Drink drink) {
         Party totalDrink = loadParty();
-        totalDrink.RemoveDrink(index);
+        totalDrink.RemoveDrink(drink);
+        saveDrinks(totalDrink);
+    }
+
+    /**
+     * Modifie une boisson dans la liste des boissons et met à jour la sauvegarde.
+     * @param oldDrink La boisson à modifier.
+     * @param newDrink La nouvelle boisson.
+     */
+    public void saveOneEditDrink(Drink oldDrink, Drink newDrink) {
+        Party totalDrink = loadParty();
+        totalDrink.EditDrink(oldDrink, newDrink);
         saveDrinks(totalDrink);
     }
 

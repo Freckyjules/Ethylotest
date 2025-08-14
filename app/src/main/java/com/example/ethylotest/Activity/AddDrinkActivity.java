@@ -51,7 +51,7 @@ public class AddDrinkActivity extends AppCompatActivity {
 
         // Initialiser les boutons
         cancelButton = findViewById(R.id.cancelButton2);
-        okButton = findViewById(R.id.okButton2);
+        okButton = findViewById(R.id.okButton3);
         beerButton = findViewById(R.id.beerButton);
         wineButton = findViewById(R.id.wineButton);
         wiskeyButton = findViewById(R.id.whiskeyButton);

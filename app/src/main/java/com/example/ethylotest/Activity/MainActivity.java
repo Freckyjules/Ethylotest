@@ -92,13 +92,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Permettre la suppression d'une boisson en maintenant appuyé sur l'élément de la liste
         beerListView.setOnItemLongClickListener((parent, view, position, id) -> {
+
+
             // Créer un AlertDialog pour la confirmation
             new AlertDialog.Builder(this)
                     .setTitle(R.string.Confirmation)
                     .setMessage(R.string.Are_you_sure_you_want_to_delete_this_drink)
                     .setPositiveButton(R.string.Yes, (dialog, which) -> {
                         // Supprimer l'élément de la liste
-                        saveParty.saveOneRemoveDrink(beerList.size() - 1 - position); // Ajuster l'index pour la suppression sur la liste inversée
+                        saveParty.saveOneRemoveDrink(beerList.get(position));
 
                         // Mettre à jour l'affichage de la liste
                         updateTotalDrinkDisplay();
@@ -107,6 +109,17 @@ public class MainActivity extends AppCompatActivity {
                     .setNegativeButton(R.string.No, null)
                     .show();
             return true; // Indiquer que l'événement est consommé
+        });
+
+        // Permet la modification d'une boisson en cliquant sur l'élément de la liste
+        beerListView.setOnItemClickListener((parent, view, position, id) -> {
+            // Récupérer la boisson sélectionnée
+            Drink selectedDrink = beerList.get(position);
+
+            // Créer un Intent pour lancer l'activité d'édition
+            Intent intent = new Intent(this, EditDrinkActivity.class);
+            intent.putExtra("drink", selectedDrink);
+            startActivity(intent);
         });
 
         // Bouton pour éditer la personne
