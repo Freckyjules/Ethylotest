@@ -31,4 +31,6 @@
     <string name="EditDrink">Edit Drink</string>
     <string name="Date">Date</string>
     <string name="Delete">Delete</string>
+    <string name="Error">Error</string>
+    <string name="YouCannotSelectAFutureDateAndTime">You cannot select a future date and time.</string>
 </resources>

@@ -32,4 +32,6 @@
     <string name="EditDrink">Modifier la boisson</string>
     <string name="Date">Date</string>
     <string name="Delete">Supprimer</string>
+    <string name="Error">Erreur</string>
+    <string name="YouCannotSelectAFutureDateAndTime">Vous ne pouvez pas sélectionner une date et une heure futures.</string>
 </resources>
