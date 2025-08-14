@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -122,6 +123,35 @@ public class EditDrinkActivity extends AppCompatActivity {
             deleteButton.setOnClickListener(v -> {
                 saveParty.saveOneRemoveDrink(oldDrink);
                 finish(); // Ferme l'activité actuelle
+            });
+
+            // Appliquer les modifications à la boisson
+            okButton.setOnClickListener(v -> {
+                // Récupérer les valeurs des champs de saisie
+                String name = nameEditText.getText().toString();
+                String volumeStr = volumeEditText.getText().toString();
+                String alcoholStr = alcoholEditText.getText().toString();
+                // le champ de date est déjà mis à jour dans l'éditeur de texte
+
+                // Vérifier que les champs ne sont pas vides
+                if (name.isEmpty() || volumeStr.isEmpty() || alcoholStr.isEmpty()) {
+                    Toast.makeText(this, "Veuillez remplir tous les champs requis.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Convertir les valeurs en types appropriés
+                    int volume = Integer.parseInt(volumeStr);
+                    double alcohol = Double.parseDouble(alcoholStr);
+
+                    // Mettre à jour l'objet Drink avec les nouvelles valeurs
+                    drinkCopy.setName(name);
+                    drinkCopy.setVolume(volume);
+                    drinkCopy.setPercentageAlcohol(alcohol);
+
+                    // Sauvegarder la boisson modifiée
+                    saveParty.saveOneEditDrink(oldDrink, drinkCopy);
+
+                    // Fermer l'activité
+                    finish();
+                }
             });
 
 

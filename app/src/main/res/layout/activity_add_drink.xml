@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="number|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
