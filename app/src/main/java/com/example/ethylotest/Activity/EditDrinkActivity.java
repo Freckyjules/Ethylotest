@@ -3,6 +3,7 @@ package com.example.ethylotest.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,34 +77,43 @@ public class EditDrinkActivity extends AppCompatActivity {
             // copie de la boisson pour la sauvegarde
             Drink drinkCopy = new Drink(oldDrink);
 
-            // Permettre à l'utilisateur de modifier la date et l'heure de consommation
+            // Configurer le sélecteur de date et d'heure
             editTextTime.setOnClickListener(v -> {
-                // Récupérer la date actuelle de l'objet
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(oldDrink.getDate());
 
-                // Sélecteur de date
-                new DatePickerDialog(EditDrinkActivity.this, (view, year, month, dayOfMonth) -> {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(EditDrinkActivity.this, (view, year, month, dayOfMonth) -> {
                     // Sélecteur d'heure
-                    new TimePickerDialog(EditDrinkActivity.this, (timeView, hourOfDay, minute) -> {
-                        // Mettre à jour la date dans le Calendar
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(EditDrinkActivity.this, (timeView, hourOfDay, minute) -> {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, month);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
 
-                        // Mettre à jour le champ texte et l'objet
-                        drinkCopy.setDate(calendar.getTime());
+                        Calendar now = Calendar.getInstance();
+                        if (calendar.after(now)) {
+                            new AlertDialog.Builder(EditDrinkActivity.this)
+                                    .setTitle(R.string.Error)
+                                    .setMessage(R.string.YouCannotSelectAFutureDateAndTime)
+                                    .setPositiveButton(R.string.Ok, null)
+                                    .show();
+                            return;
+                        }
 
+                        drinkCopy.setDate(calendar.getTime());
                         editTextTime.setText(sdf.format(calendar.getTime()));
 
-                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-                },
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+                    }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+
+                    timePickerDialog.show();
+
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                datePickerDialog.show();
             });
+
 
             // Initialiser les boutons
             cancelButton = findViewById(R.id.cancelButton3);
