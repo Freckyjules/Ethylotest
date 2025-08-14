@@ -3,9 +3,7 @@ package com.example.ethylotest.Logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import kotlin.experimental.ExperimentalObjCName;
-
-public class Drinks implements Serializable {
+public class Party implements Serializable {
     /* Liste des boissons consommées */
     private ArrayList<Drink> drinks;
 
@@ -13,7 +11,7 @@ public class Drinks implements Serializable {
      * Constructeur de la classe TotalDrink.
      * Initialise la liste des boissons.
      */
-    public Drinks() {
+    public Party() {
         this.drinks = new ArrayList<>();
     }
 
@@ -32,9 +30,31 @@ public class Drinks implements Serializable {
      * @param index l'index de la boisson à supprimer
      */
     public void RemoveDrink(int index) {
-
         this.drinks.remove(index);
+    }
 
+    /**
+     * Modifie une boisson dans la liste des boissons consommées.
+     * @param oldDrink la boisson à modifier
+     * @param newDrink la nouvelle boisson
+     */
+    public void EditDrink(Drink oldDrink, Drink newDrink) {
+        if (oldDrink != null && newDrink != null) {
+            int index = this.drinks.indexOf(oldDrink);
+            if (index != -1) {
+                this.drinks.set(index, newDrink);
+            }
+        }
+    }
+
+    /**
+     * Supprime une boisson de la liste des boissons consommées.
+     * @param drink la boisson à supprimer
+     */
+    public void RemoveDrink(Drink drink) {
+        if (drink != null) {
+            this.drinks.remove(drink);
+        }
     }
 
     /**

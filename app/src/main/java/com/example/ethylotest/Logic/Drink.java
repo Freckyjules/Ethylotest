@@ -3,6 +3,7 @@ package com.example.ethylotest.Logic;
 import java.io.Serializable;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 /**
  * Classe représentant une boisson.
@@ -33,6 +34,17 @@ public class Drink implements Serializable {
         setPercentageAlcohol(percentageAlcohol);
         setDate(new java.util.Date()); // Définit la date à la date actuelle
         setName(name);
+    }
+
+    /**
+     * Constructeur de copie pour créer une nouvelle boisson à partir d'une boisson existante.
+     * @param drink la boisson à copier
+     */
+    public Drink(Drink drink) {
+        this.volume = drink.volume;
+        this.percentageAlcohol = drink.percentageAlcohol;
+        this.date = drink.date;
+        this.name = drink.name;
     }
 
     /**
@@ -111,4 +123,21 @@ public class Drink implements Serializable {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM HH:mm");
         return name + " " + volume + "ml, " + percentageAlcohol + "%, " + dateFormat.format(date);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Drink other = (Drink) obj;
+        return volume == other.volume &&
+                Double.compare(other.percentageAlcohol, percentageAlcohol) == 0 &&
+                name.equals(other.name) &&
+                date.equals(other.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(volume, percentageAlcohol, name, date);
+    }
+
 }

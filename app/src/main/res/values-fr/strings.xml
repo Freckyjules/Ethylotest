@@ -29,4 +29,7 @@
     <string name="You_drank_too_much">Vous avez trop bu</string>
     <string name="You_can_t_drive_now">" Tu ne peux pas conduire maintenant"</string>
     <string name="You_will_be_able_to_drive_in">Vous pourrez conduire dans</string>
+    <string name="EditDrink">Modifier la boisson</string>
+    <string name="Date">Date</string>
+    <string name="Delete">Supprimer</string>
 </resources>

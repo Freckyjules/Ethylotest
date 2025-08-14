@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ethylotest.Logic.Drink;
 import com.example.ethylotest.R;
-import com.example.ethylotest.Save.SaveDrinks;
+import com.example.ethylotest.Save.SaveParty;
 
 public class AddDrinkActivity extends AppCompatActivity {
 
@@ -51,14 +51,14 @@ public class AddDrinkActivity extends AppCompatActivity {
 
         // Initialiser les boutons
         cancelButton = findViewById(R.id.cancelButton2);
-        okButton = findViewById(R.id.okButton2);
+        okButton = findViewById(R.id.okButton3);
         beerButton = findViewById(R.id.beerButton);
         wineButton = findViewById(R.id.wineButton);
         wiskeyButton = findViewById(R.id.whiskeyButton);
 
         // Initialise les sharedPreferences et la logique de sauvegarde
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
-        SaveDrinks saveDrinks = new SaveDrinks(sharedPreferences);
+        SaveParty saveParty = new SaveParty(sharedPreferences);
 
         // Configurer les actions des boutons
         beerButton.setOnClickListener(v -> {
@@ -105,7 +105,7 @@ public class AddDrinkActivity extends AppCompatActivity {
 
                 // Créer un objet Drink et le sauvegarder
                 Drink drink = new Drink(volume, alcohol, name);
-                saveDrinks.saveOneDrink(drink);
+                saveParty.saveOneDrink(drink);
 
                 // Fermer l'activité après la sauvegarde
                 finish();
