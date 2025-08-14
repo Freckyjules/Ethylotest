@@ -50,4 +50,4 @@ Téléchargez la dernière version de l'APK depuis la section [Releases](https:/
 ## Auteur
 
 Nom : Jules Passaquit-Gauffre  
-GitHub : https://github.com/Freckyjules
+@Freckyjules
