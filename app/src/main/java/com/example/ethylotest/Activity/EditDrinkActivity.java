@@ -19,8 +19,10 @@ import com.example.ethylotest.Logic.Drink;
 import com.example.ethylotest.R;
 import com.example.ethylotest.Save.SaveParty;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class EditDrinkActivity extends AppCompatActivity {
 
@@ -74,9 +76,6 @@ public class EditDrinkActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             editTextTime.setText(sdf.format(oldDrink.getDate()));
 
-            // copie de la boisson pour la sauvegarde
-            Drink drinkCopy = new Drink(oldDrink);
-
             // Configurer le sélecteur de date et d'heure
             editTextTime.setOnClickListener(v -> {
                 Calendar calendar = Calendar.getInstance();
@@ -101,7 +100,6 @@ public class EditDrinkActivity extends AppCompatActivity {
                             return;
                         }
 
-                        drinkCopy.setDate(calendar.getTime());
                         editTextTime.setText(sdf.format(calendar.getTime()));
 
                     }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
@@ -141,23 +139,25 @@ public class EditDrinkActivity extends AppCompatActivity {
                 String name = nameEditText.getText().toString();
                 String volumeStr = volumeEditText.getText().toString();
                 String alcoholStr = alcoholEditText.getText().toString();
-                // le champ de date est déjà mis à jour dans l'éditeur de texte
+                Date date = null;
+                try {
+                    date = sdf.parse(editTextTime.getText().toString());
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
 
                 // Vérifier que les champs ne sont pas vides
-                if (name.isEmpty() || volumeStr.isEmpty() || alcoholStr.isEmpty()) {
+                if (name.isEmpty() || volumeStr.isEmpty() || alcoholStr.isEmpty() || date == null) {
                     Toast.makeText(this, "Veuillez remplir tous les champs requis.", Toast.LENGTH_SHORT).show();
                 } else {
                     // Convertir les valeurs en types appropriés
                     int volume = Integer.parseInt(volumeStr);
                     double alcohol = Double.parseDouble(alcoholStr);
 
-                    // Mettre à jour l'objet Drink avec les nouvelles valeurs
-                    drinkCopy.setName(name);
-                    drinkCopy.setVolume(volume);
-                    drinkCopy.setPercentageAlcohol(alcohol);
+                    Drink drinkModified = new Drink(volume, alcohol, name, date);
 
                     // Sauvegarder la boisson modifiée
-                    saveParty.saveOneEditDrink(oldDrink, drinkCopy);
+                    saveParty.saveOneEditDrink(oldDrink, drinkModified);
 
                     // Fermer l'activité
                     finish();

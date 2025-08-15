@@ -1,5 +1,8 @@
 package com.example.ethylotest.Activity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -16,12 +19,18 @@ import com.example.ethylotest.Logic.Drink;
 import com.example.ethylotest.R;
 import com.example.ethylotest.Save.SaveParty;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class AddDrinkActivity extends AppCompatActivity {
 
     // Déclaration des variables pour les éléments de l'interface
     private EditText nameEditText;
     private EditText volumeEditText;
     private EditText alcoholEditText;
+    private EditText editTextTime;
 
     // Déclaration des boutons pour les actions
     private Button cancelButton;
@@ -48,6 +57,47 @@ public class AddDrinkActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameEditText);
         volumeEditText = findViewById(R.id.volumeEditText);
         alcoholEditText = findViewById(R.id.alcoholEditText);
+        editTextTime = findViewById(R.id.editTextTime);
+
+        // affiche la date de consommation
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        editTextTime.setText(sdf.format(new java.util.Date()));
+
+        // Configurer le sélecteur de date et d'heure
+        editTextTime.setOnClickListener(v -> {
+            Calendar calendar = Calendar.getInstance();
+            //calendar.setTime(oldDrink.getDate());
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(AddDrinkActivity.this, (view, year, month, dayOfMonth) -> {
+                // Sélecteur d'heure
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddDrinkActivity.this, (timeView, hourOfDay, minute) -> {
+                    calendar.set(Calendar.YEAR, year);
+                    calendar.set(Calendar.MONTH, month);
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    calendar.set(Calendar.MINUTE, minute);
+
+                    Calendar now = Calendar.getInstance();
+                    if (calendar.after(now)) {
+                        new AlertDialog.Builder(AddDrinkActivity.this)
+                                .setTitle(R.string.Error)
+                                .setMessage(R.string.YouCannotSelectAFutureDateAndTime)
+                                .setPositiveButton(R.string.Ok, null)
+                                .show();
+                        return;
+                    }
+
+                    editTextTime.setText(sdf.format(calendar.getTime()));
+
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+
+                timePickerDialog.show();
+
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+            datePickerDialog.show();
+        });
 
         // Initialiser les boutons
         cancelButton = findViewById(R.id.cancelButton2);
@@ -94,6 +144,12 @@ public class AddDrinkActivity extends AppCompatActivity {
             String name = nameEditText.getText().toString();
             String volumeStr = volumeEditText.getText().toString();
             String alcoholStr = alcoholEditText.getText().toString();
+            Date date = null;
+            try {
+                date = sdf.parse(editTextTime.getText().toString());
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
             // Vérifier que les champs ne sont pas vides
             if (name.isEmpty() || volumeStr.isEmpty() || alcoholStr.isEmpty()) {
@@ -104,7 +160,7 @@ public class AddDrinkActivity extends AppCompatActivity {
                 double alcohol = Double.parseDouble(alcoholStr);
 
                 // Créer un objet Drink et le sauvegarder
-                Drink drink = new Drink(volume, alcohol, name);
+                Drink drink = new Drink(volume, alcohol, name, date);
                 saveParty.saveOneDrink(drink);
 
                 // Fermer l'activité après la sauvegarde
