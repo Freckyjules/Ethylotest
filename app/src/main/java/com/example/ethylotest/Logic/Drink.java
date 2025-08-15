@@ -23,20 +23,6 @@ public class Drink implements Serializable {
     private String name;
 
     /**
-     * Constructeur de la classe Drink.
-     * Initialise le volume, le pourcentage d'alcool, la date et le nom de la boisson.
-     * @param volume le volume en centilitres
-     * @param percentageAlcohol le pourcentage d'alcool
-     * @param name le nom de la boisson
-     */
-    public Drink(int volume, double percentageAlcohol, String name) {
-        setVolume(volume);
-        setPercentageAlcohol(percentageAlcohol);
-        setDate(new java.util.Date()); // Définit la date à la date actuelle
-        setName(name);
-    }
-
-    /**
      * Constructeur de copie pour créer une nouvelle boisson à partir d'une boisson existante.
      * @param drink la boisson à copier
      */
@@ -45,6 +31,20 @@ public class Drink implements Serializable {
         this.percentageAlcohol = drink.percentageAlcohol;
         this.date = drink.date;
         this.name = drink.name;
+    }
+
+    /**
+     * Constructeur de la classe Drink.
+     * @param volume le volume de la boisson en centilitres
+     * @param percentageAlcohol le pourcentage d'alcool dans la boisson
+     * @param name le nom de la boisson
+     * @param date la date de consommation de la boisson
+     */
+    public Drink(int volume, double percentageAlcohol, String name, Date date) {
+        setVolume(volume);
+        setPercentageAlcohol(percentageAlcohol);
+        setName(name);
+        setDate(date);
     }
 
     /**
